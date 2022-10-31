@@ -1,0 +1,14 @@
+# Dependencies
+node_modules
+
+# VSCode
+.vscode
+
+# PhpStorm
+.idea
+
+# Docker Compose
+.env
+
+# OSX
+.DS_Store

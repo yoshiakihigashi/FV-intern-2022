@@ -1,0 +1,21 @@
+/node_modules
+/public/css
+/public/js
+/public/mix-manifest.json
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+.env
+.env.backup
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+
+# VSCode
+.vscode
+
+# OSX
+.DS_Store
