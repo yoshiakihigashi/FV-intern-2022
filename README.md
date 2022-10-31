@@ -113,3 +113,4 @@ develop ブランチから作業用のブランチを切ってから作業をは
 | git add xxx.php xxx.js       | 指定したファイルをステージングに移動    |
 | git commit -m 'xxx'          | xxx というコミットメッセージを追加      |
 | git push origin xxx          | リモートの xxx へ送信（更新）           |
+# test-intern
