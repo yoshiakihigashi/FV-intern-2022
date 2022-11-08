@@ -50,13 +50,20 @@
                                 <td>
                                     <form action="/todos/complete/{{$todo->id}}" method="POST">
                                         @csrf
+                                        @method('put')
                                         <input type="submit" value="完了" class="btn btn-secondary">
                                     </form>
                                 </td>
                                 @endif
                                 <td class="child{{$todo->id}}"><a class="btn btn-success" href="/todos/edit" id="edit-button-{{$todo->id}}">編集</a></td>
                                 <td class="child{{$todo->id}}">
-                                    <button class="btn btn-danger">削除</button>
+                                    {{-- <button class="btn btn-danger">削除</button> --}}
+                                    <form action="/todos/delete/{{$todo->id}}" method="POST">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="btn btn-danger">削除</button>
+                                        {{-- <input type="submit" value="削除" class="btn btn-danger"> --}}
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
