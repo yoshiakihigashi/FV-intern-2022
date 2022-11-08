@@ -39,9 +39,21 @@
                                 <td class="child{{$todo->id}}">{{ $todo->id }}</td>
                                 <td class="child{{$todo->id}}" id="child-title-{{$todo->id}}">{{ $todo->title}}</td>
                                 <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                @if($todo->is_complete === 0)
+                                    <td>未完了</td>
+                                @else
+                                    <td>完了</td>
+                                @endif    
+                                @if($todo->is_complete === 1)
+                                <td>未完了</td>
+                                @else
+                                <td>
+                                    <form action="/todos/complete/{{$todo->id}}" method="POST">
+                                        @csrf
+                                        <input type="submit" value="完了" class="btn btn-secondary">
+                                    </form>
+                                </td>
+                                @endif
                                 <td class="child{{$todo->id}}"><a class="btn btn-success" href="/todos/edit" id="edit-button-{{$todo->id}}">編集</a></td>
                                 <td class="child{{$todo->id}}">
                                     <button class="btn btn-danger">削除</button>

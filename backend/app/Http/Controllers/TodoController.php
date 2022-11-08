@@ -53,5 +53,13 @@ class TodoController extends Controller
         return view('todo.edit');
     }
 
+    public function complete(Request $request , $id)
+    {
+       $todo = Todo::find($id);
+       $todo->is_complete = 1;
+       $todo->save();
+       return redirect()->route('todo.index');
+    }
+
 
 }
