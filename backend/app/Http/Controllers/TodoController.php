@@ -61,5 +61,10 @@ class TodoController extends Controller
        return redirect()->route('todo.index');
     }
 
-
+    public function delete(Request $request , $id)
+    {
+       $todo = Todo::find($id);
+       $todo->delete();
+       return redirect()->route('todo.index');
+    }
 }
