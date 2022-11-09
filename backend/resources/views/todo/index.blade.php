@@ -54,9 +54,10 @@
                                         <input type="submit" value="完了" class="btn btn-secondary">
                                     </form>
                                 </td>
-                                @endif
-                                <td class="child{{$todo->id}}"><a class="btn btn-success" href="/todos/edit" id="edit-button-{{$todo->id}}">編集</a></td>
-                                <td class="child{{$todo->id}}">
+                                @endif                               
+                              <td class="child{{$todo->id}}"><a class="btn btn-success" href="/todos/edit/{{$todo->id}}" id="edit-button-{{$todo->id}}">編集</a></td> 
+                               {{-- <td><a href="{{ route('todo.edit', ['id'=>$todo->todo_id]) }}" class="btn btn-success">編集</a></td> --}}
+                               <td class="child{{$todo->id}}">
                                     {{-- <button class="btn btn-danger">削除</button> --}}
                                     <form action="/todos/delete/{{$todo->id}}" method="POST">
                                         @csrf
