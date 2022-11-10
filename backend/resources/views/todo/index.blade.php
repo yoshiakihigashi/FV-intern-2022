@@ -13,8 +13,8 @@
                             </th>
                             <th>
                                 <form method="GET">
-                                    <button type="submit" name="sort" value="asc" class="btn btn-success">OLD</button>
-                                    <button type="submit" name="sort" value="desc" class="btn btn-primary">NEW</button>
+                                    <a class="btn btn-success" href = '/todos'>OLD</a>
+                                    <a class="btn btn-primary" href = '/todos/new'>NEW</a>
                                 </form>
                             </th>
                         </tr>
@@ -39,12 +39,32 @@
                                 <td class="child{{$todo->id}}">{{ $todo->id }}</td>
                                 <td class="child{{$todo->id}}" id="child-title-{{$todo->id}}">{{ $todo->title}}</td>
                                 <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td class="child{{$todo->id}}"><a class="btn btn-success" href="/todos/edit" id="edit-button-{{$todo->id}}">編集</a></td>
-                                <td class="child{{$todo->id}}">
-                                    <button class="btn btn-danger">削除</button>
+                                @if($todo->is_complete === 0)
+                                    <td>未完了</td>
+                                @else
+                                    <td>完了</td>
+                                @endif    
+                                @if($todo->is_complete === 1)
+                                <td>未完了</td>
+                                @else
+                                <td>
+                                    <form action="/todos/complete/{{$todo->id}}" method="POST">
+                                        @csrf
+                                        @method('put')
+                                        <input type="submit" value="完了" class="btn btn-secondary">
+                                    </form>
+                                </td>
+                                @endif                               
+                              <td class="child{{$todo->id}}"><a class="btn btn-success" href="/todos/edit/{{$todo->id}}" id="edit-button-{{$todo->id}}">編集</a></td> 
+                               {{-- <td><a href="{{ route('todo.edit', ['id'=>$todo->todo_id]) }}" class="btn btn-success">編集</a></td> --}}
+                               <td class="child{{$todo->id}}">
+                                    {{-- <button class="btn btn-danger">削除</button> --}}
+                                    <form action="/todos/delete/{{$todo->id}}" method="POST">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="btn btn-danger">削除</button>
+                                        {{-- <input type="submit" value="削除" class="btn btn-danger"> --}}
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

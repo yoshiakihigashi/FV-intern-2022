@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Todo;
+use Illuminate\Support\Facades\Auth;
 
 class TodoController extends Controller
 {
@@ -14,7 +15,10 @@ class TodoController extends Controller
      */
     public function index(Request $request)
     {
-        $todos = Todo::all();
+        // $todos = Todo::all();
+        $user_id = Auth::id();
+        $todos = Todo::where('user_id', '=', $user_id)->get();
+        //  dd($todos);
         return view('todo.index',['todos' => $todos]);
     }
 
@@ -40,18 +44,53 @@ class TodoController extends Controller
         $form = $request -> all();
         unset($form['_token']);
 
+        $todo->user_id = Auth::id();
+
         $todo->fill($form)->save();
 
-        return redirect('todos')->with(
+        return redirect('todos')->with([
             'success',
             'ID : ' . $todo->id . '「' . $todo->title . '」を登録しました！'
-        );
+        ]);
     }
-
-    public function edit(Request $request )
+//ここからタスク登録と同時にユーザーIDを保存
+    public function edit(Request $request , $id)
     {
-        return view('todo.edit');
+        $todo = Todo::find($id);
+        return view('todo.edit', ['todo' => $todo]);
     }
 
+    public function update(Request $request, $id)
+    {
+        // dd($request->_method);
+        $todo = Todo::find($id);
+        $todo->title = $request->todo_name;
+        $todo->save();
+        
+
+        return redirect()->route('todo.index');
+    }
+
+    public function complete(Request $request , $id)
+    {
+       $todo = Todo::find($id);
+       $todo->is_complete = 1;
+       $todo->save();
+       return redirect()->route('todo.index');
+    }
+
+    public function delete(Request $request , $id)
+    {
+       $todo = Todo::find($id);
+       $todo->delete();
+       return redirect()->route('todo.index');
+    }
+
+    public function orderNew(Request $request)
+    {
+        $user_id = Auth::id();
+        $todos = Todo::where('user_id', '=', $user_id)->latest()->get();
+        return view('todo.index',['todos' => $todos]);
+    }
 
 }
