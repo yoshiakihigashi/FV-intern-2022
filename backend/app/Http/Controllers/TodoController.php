@@ -85,4 +85,12 @@ class TodoController extends Controller
        $todo->delete();
        return redirect()->route('todo.index');
     }
+
+    public function orderNew(Request $request)
+    {
+        $user_id = Auth::id();
+        $todos = Todo::where('user_id', '=', $user_id)->latest()->get();
+        return view('todo.index',['todos' => $todos]);
+    }
+
 }

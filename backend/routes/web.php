@@ -31,5 +31,6 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/todos/edit/{id}', [App\Http\Controllers\TodoController::class, 'update'])->name('todo.update');
     Route::put('/todos/complete/{id}', [App\Http\Controllers\TodoController::class, 'complete'])->name('todo.complete');
     Route::delete('/todos/delete/{id}', [App\Http\Controllers\TodoController::class, 'delete'])->name('todo.delete');
-   
+    Route::get('/todos/new', [App\Http\Controllers\TodoController::class, 'orderNew'])->name('todo.oderNew');
+
 });
