@@ -13,8 +13,8 @@
                             </th>
                             <th>
                                 <form method="GET">
-                                    <button type="submit" name="sort" value="asc" class="btn btn-success">OLD</button>
-                                    <button type="submit" name="sort" value="desc" class="btn btn-primary">NEW</button>
+                                    <a class="btn btn-success" href = '/todos'>OLD</a>
+                                    <a class="btn btn-primary" href = '/todos/new'>NEW</a>
                                 </form>
                             </th>
                         </tr>
