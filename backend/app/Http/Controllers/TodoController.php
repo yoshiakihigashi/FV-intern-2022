@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Todo;
+use Illuminate\Support\Facades\Auth;
 
 class TodoController extends Controller
 {
@@ -14,7 +15,10 @@ class TodoController extends Controller
      */
     public function index(Request $request)
     {
-        $todos = Todo::all();
+        // $todos = Todo::all();
+        $user_id = Auth::id();
+        $todos = Todo::where('user_id', '=', $user_id)->get();
+        //  dd($todos);
         return view('todo.index',['todos' => $todos]);
     }
 
@@ -40,14 +44,16 @@ class TodoController extends Controller
         $form = $request -> all();
         unset($form['_token']);
 
+        $todo->user_id = Auth::id();
+
         $todo->fill($form)->save();
 
-        return redirect('todos')->with(
+        return redirect('todos')->with([
             'success',
             'ID : ' . $todo->id . '「' . $todo->title . '」を登録しました！'
-        );
+        ]);
     }
-
+//ここからタスク登録と同時にユーザーIDを保存
     public function edit(Request $request , $id)
     {
         $todo = Todo::find($id);
